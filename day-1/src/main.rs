@@ -1,3 +1,5 @@
+use std::fs::read_to_string;
+
 fn main() {
     let sum = sum();
     println!("Sum: {}", sum);
@@ -6,7 +8,7 @@ fn main() {
 
 //create a function that dont take input and  return a int
 fn sum() -> i32 {
-    let input = std::fs::read_to_string("src/day_1_input.txt");
+    let input = read_to_string("src/day_1_input.txt");
     let input = match input {
         Ok(input) => input,
         Err(_) => panic!("Could not read input file"),

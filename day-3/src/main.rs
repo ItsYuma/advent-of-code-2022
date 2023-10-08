@@ -1,13 +1,15 @@
+use std::fs::read_to_string;
+
 fn main() {
     part_1();
-    
+    part_2();
 }
 
 fn part_1() {
     let priority = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let mut sum = 0;
 
-    let input = std::fs::read_to_string("input_day_3.txt");
+    let input = read_to_string("/Users/stevystefko/Downloads/input-3.txt");
     let input = match input {
         Ok(input) => input,
         Err(_) => panic!("Could not read input file"),
@@ -28,13 +30,28 @@ fn part_1() {
     println!("Sum: {}", sum);
 }
 
-fn part_2(){
+fn part_2() {
     let priority = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let mut sum = 0;
+    let file = read_to_string("/Users/stevystefko/Downloads/input-3.txt").unwrap();
+    let mut i = 0;
+    let mut group = Vec::new();
 
-    let input = std::fs::read_to_string("input_day_3.txt");
-    let input = match input {
-        Ok(input) => input,
-        Err(_) => panic!("Could not read input file"),
-    };
+    for line in file.lines(){
+        i += 1;
+        group.push(line);
+        if i == 3 {
+            for str in group[0].chars(){
+                if group[1].contains(str) && group[2].contains(str){
+                    let i = priority.find(str).unwrap() + 1;
+                    sum += i;
+                    break;
+                }
+            }
+            i = 0;
+            group.clear();
+        }
+    }
+    println!("Sum: {}", sum);
 }
+
